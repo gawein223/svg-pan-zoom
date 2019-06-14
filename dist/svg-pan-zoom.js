@@ -1199,6 +1199,7 @@ SvgPanZoom.prototype.getPublicInstance = function() {
     , zoomAtPointBy: function(scale, point) {that.publicZoomAtPoint(scale, point, false); return that.pi}
     , zoomIn: function() {this.zoomBy(1 + that.options.zoomScaleSensitivity); return that.pi}
     , zoomOut: function() {this.zoomBy(1 / (1 + that.options.zoomScaleSensitivity)); return that.pi}
+    , computeFromRelativeZoom: function(z) {return that.computeFromRelativeZoom(z)}
     , getZoom: function() {return that.getRelativeZoom()}
       // CTM update
     , setOnUpdatedCTM: function(fn) {that.options.onUpdatedCTM = fn === null ? null : Utils.proxy(fn, that.publicInstance); return that.pi}
@@ -1223,6 +1224,10 @@ SvgPanZoom.prototype.getPublicInstance = function() {
       }
       // Destroy
     , destroy: function() {that.destroy(); return that.pi}
+    , handleMouseDown: function(e, pe) { that.handleMouseDown(e, pe);}
+    , handleMouseUp: function(e) { that.handleMouseUp(e);}
+    , handleMouseMove: function(e) { that.handleMouseMove(e);}
+    , handleMouseWheel: function(e) { that.handleMouseWheel(e);}
     }
   }
 
