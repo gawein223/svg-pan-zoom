@@ -77,7 +77,7 @@ gulp.task('sync metadata', function(){
 /**
  * Build
  */
-gulp.task('build', ['test', 'check', 'browserify', 'sync metadata'])
+gulp.task('build', ['check', 'browserify', 'sync metadata'])
 
 /**
  * Default task

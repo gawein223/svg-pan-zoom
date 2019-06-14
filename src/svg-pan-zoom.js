@@ -245,8 +245,9 @@ SvgPanZoom.prototype.handleMouseWheel = function(evt) {
   delta = -0.3 < delta && delta < 0.3 ? delta : (delta > 0 ? 1 : -1) * Math.log(Math.abs(delta) + 10) / divider
 
   var inversedScreenCTM = this.svg.getScreenCTM().inverse()
-    , relativeMousePoint = SvgUtils.getEventPoint(evt, this.svg).matrixTransform(inversedScreenCTM)
-    , zoom = Math.pow(1 + this.options.zoomScaleSensitivity, (-1) * delta); // multiplying by neg. 1 so as to make zoom in/out behavior match Google maps behavior
+    , relativeMousePoint = SvgUtils.getEventPoint(evt, this.svg).matrixTransform(inversedScreenCTM);
+    // , zoom = Math.pow(1 + this.options.zoomScaleSensitivity, (-1) * delta); // multiplying by neg. 1 so as to make zoom in/out behavior match Google maps behavior
+  var zoom = (event.deltaY > 0 ? -this.options.zoomScaleSensitivity : this.options.zoomScaleSensitivity);
 
   this.zoomAtPoint(zoom, relativeMousePoint)
 }
@@ -271,7 +272,9 @@ SvgPanZoom.prototype.zoomAtPoint = function(zoomScale, point, zoomAbsolute) {
     }
   } else {
     // Fit zoomScale in set bounds
-    zoomScale = Math.max(this.options.minZoom * originalState.zoom, Math.min(this.options.maxZoom * originalState.zoom, zoomScale))
+    zoomScale = Math.max(this.options.minZoom * originalState.zoom
+      , Math.min(this.options.maxZoom * originalState.zoom
+      , zoomScale * originalState.zoom + this.getZoom()))
     // Find relative scale to achieve desired scale
     zoomScale = zoomScale/this.getZoom()
   }
