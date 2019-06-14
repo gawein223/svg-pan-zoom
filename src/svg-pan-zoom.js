@@ -249,7 +249,7 @@ SvgPanZoom.prototype.handleMouseWheel = function(evt) {
     // , zoom = Math.pow(1 + this.options.zoomScaleSensitivity, (-1) * delta); // multiplying by neg. 1 so as to make zoom in/out behavior match Google maps behavior
   var zoom = (event.deltaY > 0 ? -this.options.zoomScaleSensitivity : this.options.zoomScaleSensitivity);
 
-  this.zoomAtPoint(zoom, relativeMousePoint)
+  this.zoomAtPoint(zoom, relativeMousePoint, true)
 }
 
 /**
